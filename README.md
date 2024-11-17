@@ -52,7 +52,46 @@ As the project is still under development, there's no live version yet. However,
 
 2. Join our efforts! If you're interested in contributing, check out the **[Contributing](#contributing)** section below.
 
+## Contributing
 
+We welcome early contributions as we develop the platform! Feel free to open issues, suggest features, or submit pull requests. Please follow these steps to contribute:
+
+### Step-by-Step Contribution Workflow:
+
+1. **Fork the Repository**: 
+   - Fork the repository (this will create a copy of the repo under your GitHub account).
+   
+2. **Clone the Repository Locally**:
+   - Clone your forked repository:
+     ```bash
+     git clone https://github.com/climbai/user_platform.git
+     cd user_platform
+     ```
+
+3. **Create a Feature Branch**:
+   - Create a new branch for your feature or bug fix:
+     ```bash
+     git checkout -b feature-name
+     ```
+
+4. **Push Changes to the Original Repo's `dev` Branch**:
+   - Add the original repository as an upstream remote:
+     ```bash
+     git remote add upstream https://github.com/climbai/user_platform.git
+     git fetch upstream
+     ```
+
+   - Push your changes to your local branch of the forked repository:
+     ```bash
+     git push origin feature-name
+     ```
+
+5. **Create a Pull Request**:
+   - Open a pull request (PR) to merge your changes into the `dev` branch.
+   - Make sure your PR includes a clear description of the changes and any relevant details.
+
+6. **Review and Merge**:
+   - After your PR is reviewed and validated, it will be merged into the `dev` branch.
 
 ### Branching Model:
 - Developers should always create feature branches from `main`, push their changes to the `dev` branch for testing and review, and only after successful testing and approval, changes will be merged into `main`.
