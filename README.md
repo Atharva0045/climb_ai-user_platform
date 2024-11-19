@@ -56,8 +56,8 @@ As the project is still under development, there's no live version yet. However,
 
 1. Clone the repository to stay updated:
     ```bash
-    git clone https://github.com/climb-ai/climbai.git
-    cd climbai
+    git clone https://github.com/climbai/user_platform.git
+    cd user_platform
     ```
 
 2. Join our efforts! If you're interested in contributing, check out the **[Contributing](#contributing)** section below.
@@ -74,14 +74,14 @@ We welcome early contributions as we develop the platform! Feel free to open iss
 2. **Clone the Repository Locally**:
    - Clone your forked repository:
      ```bash
-     git clone https://github.com/climb-ai/user_platform.git
+     git clone https://github.com/climbai/user_platform.git
      cd user_platform
      ```
 
 3. **Set Up Upstream Remote**:
    - Add the original repository as upstream:
      ```bash
-     git remote add upstream https://github.com/climb-ai/climbai.git
+     git remote add upstream https://github.com/climbai/user_platform.git
      git fetch upstream
      ```
    - Verify your remotes:
