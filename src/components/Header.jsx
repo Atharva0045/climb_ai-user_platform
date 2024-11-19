@@ -128,7 +128,7 @@ const Header = () => {
             
             {/* GitHub Link */}
             <a
-              href="https://github.com/climbai/user_platform"
+              href="https://github.com/climb-ai/climbai"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our GitHub"

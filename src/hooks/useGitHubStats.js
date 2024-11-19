@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const GITHUB_API_BASE = 'https://api.github.com/repos/climbai/user_platform';
+const GITHUB_API_BASE = 'https://api.github.com/repos/climb-ai/climbai';
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const useGitHubStats = () => {
