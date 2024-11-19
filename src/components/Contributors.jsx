@@ -86,7 +86,7 @@ const Contributors = () => {
       {/* Call to Action */}
       <div className="flex flex-col items-center gap-4">
         <a
-          href="https://github.com/climb-ai/climbai#contributing"
+          href="https://github.com/climbai/user_platform#contributing"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-cyan-600 text-white py-3 px-6 rounded-lg hover:bg-cyan-700 transition-colors inline-flex items-center gap-2"
