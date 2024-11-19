@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const GITHUB_API_BASE = 'https://api.github.com/repos/climbai/user_platform';
-const CACHE_KEY = 'github_stats_cache';
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const useGitHubStats = () => {
   const [stats, setStats] = useState({
@@ -17,29 +16,48 @@ const useGitHubStats = () => {
   useEffect(() => {
     const fetchGitHubStats = async () => {
       try {
-        // Check cache first
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        if (cachedData) {
-          const { data, timestamp } = JSON.parse(cachedData);
-          if (Date.now() - timestamp < CACHE_DURATION) {
-            setStats(data);
-            setLoading(false);
-            return;
-          }
-        }
+        const headers = {
+          'Accept': 'application/vnd.github.v3+json',
+          ...(GITHUB_TOKEN && { 'Authorization': `token ${GITHUB_TOKEN}` })
+        };
 
-        // Fetch fresh data if cache is invalid or expired
-        const [contributorsRes, pullsRes, commitsRes] = await Promise.all([
-          fetch(`${GITHUB_API_BASE}/contributors`),
-          fetch(`${GITHUB_API_BASE}/pulls?state=all`),
-          fetch(`${GITHUB_API_BASE}/commits`)
+        // Helper function to fetch all pages
+        const fetchAllPages = async (endpoint) => {
+          let page = 1;
+          let allData = [];
+          
+          while (true) {
+            const response = await fetch(
+              `${endpoint}?per_page=100&page=${page}`,
+              { headers }
+            );
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(
+                `GitHub API Error (${response.status}): ${errorData.message}`
+              );
+            }
+
+            const data = await response.json();
+            if (!data.length) break;
+            
+            allData = allData.concat(data);
+            page++;
+          }
+          
+          return allData;
+        };
+
+        // Fetch all data in parallel
+        const [contributors, pulls, commits] = await Promise.all([
+          fetchAllPages(`${GITHUB_API_BASE}/contributors`),
+          fetchAllPages(`${GITHUB_API_BASE}/pulls?state=closed`),
+          fetchAllPages(`${GITHUB_API_BASE}/commits`)
         ]);
 
-        const contributors = await contributorsRes.json();
-        const pulls = await pullsRes.json();
-        const commits = await commitsRes.json();
-
-        const newStats = {
+        // Update stats
+        setStats({
           contributors: contributors.length,
           pullRequests: pulls.length,
           commits: commits.length,
@@ -48,17 +66,10 @@ const useGitHubStats = () => {
             url: c.html_url,
             username: c.login
           }))
-        };
-
-        // Update cache
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
-          data: newStats,
-          timestamp: Date.now()
-        }));
-
-        setStats(newStats);
+        });
       } catch (err) {
-        setError(err.message);
+        console.error('Error fetching GitHub stats:', err);
+        setError(err.message || 'Failed to fetch GitHub stats');
       } finally {
         setLoading(false);
       }
