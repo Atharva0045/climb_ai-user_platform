@@ -33,7 +33,7 @@ const Benefits = () => (
       <BenefitCard
         icon={BookOpen}
         title="Career Development"
-        description="Portfolio building tools and technical interview preparation resources"
+        description="Resume building tools and technical interview preparation resources"
       />
     </div>
   </section>

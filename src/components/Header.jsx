@@ -1,21 +1,30 @@
 import { Github } from "lucide-react";
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const { user, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleAuth = async () => {
     if (user) {
       navigate('/profile');
     } else {
-      try {
-        await signInWithGoogle();
-        navigate('/profile');
-      } catch (error) {
-        console.error('Authentication failed:', error);
-      }
+      navigate('/');
+      setTimeout(() => {
+        document.querySelector('[aria-label="Get started for free"]')?.click();
+      }, 100);
+    }
+  };
+
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    if (isHomePage) {
+      document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(`/${sectionId === '#features' ? '' : ''}`);
     }
   };
 
@@ -24,57 +33,60 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo with Icon */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <img 
               src="/platform-icon.svg" 
               alt="Climb AI Logo" 
               className="h-8 w-8"
             />
             <h1 className="text-white text-3xl font-bold">Climb AI</h1>
-          </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="flex space-x-8" aria-label="Main navigation">
-            <a
-              href="#"
+            <Link
+              to="/roadmaps"
               className="text-white hover:text-cyan-400 font-medium transition-colors"
               aria-label="Roadmaps"
             >
               Roadmaps
-            </a>
-            <a
-              href="#features"
-              className="text-white hover:text-cyan-400 font-medium transition-colors"
-              aria-label="Features"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Features
-            </a>
-            <a
-              href="#tools"
-              className="text-white hover:text-cyan-400 font-medium transition-colors"
-              aria-label="Tools"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Tools
-            </a>
-            <a
-              href="#contributors"
-              className="text-white hover:text-cyan-400 font-medium transition-colors"
-              aria-label="Contribute"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contributors')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Contribute
-            </a>
+            </Link>
+            {isHomePage ? (
+              <>
+                <a
+                  href="#features"
+                  className="text-white hover:text-cyan-400 font-medium transition-colors"
+                  aria-label="Features"
+                  onClick={(e) => handleNavClick(e, '#features')}
+                >
+                  Features
+                </a>
+                <a
+                  href="#tools"
+                  className="text-white hover:text-cyan-400 font-medium transition-colors"
+                  aria-label="Tools"
+                  onClick={(e) => handleNavClick(e, '#tools')}
+                >
+                  Tools
+                </a>
+                <a
+                  href="#contributors"
+                  className="text-white hover:text-cyan-400 font-medium transition-colors"
+                  aria-label="Contribute"
+                  onClick={(e) => handleNavClick(e, '#contributors')}
+                >
+                  Contribute
+                </a>
+              </>
+            ) : (
+              <Link
+                to="/"
+                className="text-white hover:text-cyan-400 font-medium transition-colors"
+                aria-label="Home"
+              >
+                Home
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -82,7 +94,7 @@ const Header = () => {
               onClick={handleAuth}
               className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition-colors"
             >
-              {user ? 'Profile' : 'Sign In'}
+              {user ? 'Profile' : 'Get Started for Free'}
             </button>
             
             {/* GitHub Link */}
