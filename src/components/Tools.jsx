@@ -3,7 +3,8 @@ import {
   LineChart, 
   Code2, 
   UserCheck, 
-  FileText 
+  FileText,
+  MessagesSquare
 } from "lucide-react";
 
 const ToolCard = ({ icon: Icon, title, description }) => (
@@ -49,7 +50,12 @@ const Tools = () => (
       <ToolCard
         icon={FileText}
         title="Documentation Guide"
-        description="Best practices and templates for writing clear and effective documentation"
+        description="Best practices and templates for writing clear and effective resumes"
+      />
+      <ToolCard
+        icon={MessagesSquare}
+        title="Community Support"
+        description="Connect with peers, share progress, and get help through our active Discord community"
       />
     </div>
   </section>
