@@ -3,7 +3,8 @@ import {
   GoogleAuthProvider, 
   signInWithPopup, 
   signOut, 
-  onAuthStateChanged 
+  onAuthStateChanged,
+  fetchSignInMethodsForEmail 
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
@@ -14,13 +15,39 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (isSignUp = false) => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      // Clear any previous errors
+      setError(null);
+
+      // If signing up, add custom parameter
+      if (isSignUp) {
+        provider.setCustomParameters({
+          prompt: 'select_account'
+        });
+      }
+
+      const result = await signInWithPopup(auth, provider);
+      const email = result.user.email;
+      
+      // Check if this is a new or existing account
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+      
+      if (isSignUp && signInMethods.length > 0) {
+        throw new Error('Account already exists. Please use Log In instead.');
+      }
+
+      return result.user;
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error('Authentication error:', error);
+      if (error.code === 'auth/popup-closed-by-user') {
+        setError('Authentication cancelled.');
+      } else {
+        setError(error.message);
+      }
       throw error;
     }
   };
@@ -39,8 +66,10 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     loading,
+    error,
     signInWithGoogle,
-    logout
+    logout,
+    setError
   };
 
   return (
