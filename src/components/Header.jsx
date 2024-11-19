@@ -3,19 +3,31 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, error, setError } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
-  const handleAuth = async () => {
+  const handleAuth = async (action) => {
     if (user) {
       navigate('/profile');
     } else {
-      navigate('/');
-      setTimeout(() => {
-        document.querySelector('[aria-label="Get started for free"]')?.click();
-      }, 100);
+      try {
+        setError(null);
+        if (action === 'login') {
+          await signInWithGoogle(false);
+          navigate('/personalized-roadmaps');
+        } else if (action === 'signup') {
+          await signInWithGoogle(true);
+          navigate('/personalized-roadmaps');
+        }
+      } catch (error) {
+        if (error.message === 'Account already exists. Please use Log In instead.') {
+          alert(error.message);
+        } else if (error.code !== 'auth/popup-closed-by-user') {
+          console.error('Authentication error:', error);
+        }
+      }
     }
   };
 
@@ -90,12 +102,29 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <button
-              onClick={handleAuth}
-              className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition-colors"
-            >
-              {user ? 'Profile' : 'Get Started for Free'}
-            </button>
+            {user ? (
+              <button
+                onClick={() => navigate('/profile')}
+                className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition-colors"
+              >
+                Profile
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => handleAuth('login')}
+                  className="text-white hover:text-cyan-400 transition-colors"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => handleAuth('signup')}
+                  className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition-colors"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
             
             {/* GitHub Link */}
             <a
