@@ -60,29 +60,13 @@ const QuizComponent = ({ onComplete }) => {
   const { user } = useAuth();
 
   const handleAnswer = (questionId, answer) => {
-    setUserAnswers(prev => {
-      const current = prev[questionId] || [];
-      const question = quizQuestions.find(q => q.id === questionId);
-      
-      if (question.multiple) {
-        return {
-          ...prev,
-          [questionId]: current.includes(answer)
-            ? current.filter(a => a !== answer)
-            : [...current, answer]
-        };
-      }
-      
-      return {
-        ...prev,
-        [questionId]: [answer]
-      };
-    });
+    setUserAnswers(prev => ({
+      ...prev,
+      [questionId]: [answer]
+    }));
 
-    if (!quizQuestions[currentQuestion].multiple) {
-      if (currentQuestion < quizQuestions.length - 1) {
-        setCurrentQuestion(prev => prev + 1);
-      }
+    if (currentQuestion < quizQuestions.length - 1) {
+      setCurrentQuestion(prev => prev + 1);
     }
   };
 
