@@ -13,13 +13,13 @@ const Contributors = () => {
   const { stats, loading, error } = useGitHubStats();
 
   return (
-    <section id="contributors" className="mt-28 text-center">
-      <h2 className="text-4xl font-bold text-white mb-6">
+    <section id="contributors" className="mt-16 sm:mt-28 px-4 sm:px-6 lg:px-8 text-center">
+      <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
         Join Our Growing Community of Builders
       </h2>
       
       {/* Stats Display */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-3xl mx-auto mb-8 sm:mb-12">
         {loading ? (
           <div className="col-span-3 flex justify-center py-8">
             <Loader2 className="h-8 w-8 text-cyan-500 animate-spin" />
@@ -50,7 +50,7 @@ const Contributors = () => {
       </div>
 
       {/* Contributors Grid */}
-      <div className="flex justify-center gap-8 max-w-3xl mx-auto mb-12">
+      <div className="flex justify-center gap-4 sm:gap-8 max-w-3xl mx-auto mb-8 sm:mb-12">
         {loading ? (
           <div className="flex gap-8">
             {[...Array(2)].map((_, i) => (
@@ -89,12 +89,12 @@ const Contributors = () => {
           href="https://github.com/climbai/user_platform#contributing"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-cyan-600 text-white py-3 px-6 rounded-lg hover:bg-cyan-700 transition-colors inline-flex items-center gap-2"
+          className="w-full sm:w-auto bg-cyan-600 text-white py-3 px-6 rounded-lg hover:bg-cyan-700 transition-colors inline-flex items-center justify-center gap-2"
         >
           <Code2 className="h-5 w-5" />
           Become a Contributor
         </a>
-        <p className="text-gray-400 max-w-xl">
+        <p className="text-gray-400 max-w-xl px-4">
           Join us in building the future of AI-powered learning. Check out our contributing guidelines to get started.
         </p>
       </div>
