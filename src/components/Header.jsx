@@ -8,6 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isRoadmapsPage = location.pathname === '/roadmaps';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleAuth = async (action) => {
@@ -58,41 +59,7 @@ const Header = () => {
 
           {/* Navigation - Hidden on mobile, shown on larger screens */}
           <nav className="hidden md:flex space-x-8" aria-label="Main navigation">
-            <Link
-              to="/roadmaps"
-              className="text-white hover:text-cyan-400 font-medium transition-colors"
-              aria-label="Roadmaps"
-            >
-              Roadmaps
-            </Link>
-            {isHomePage ? (
-              <>
-                <a
-                  href="#features"
-                  className="text-white hover:text-cyan-400 font-medium transition-colors"
-                  aria-label="Features"
-                  onClick={(e) => handleNavClick(e, '#features')}
-                >
-                  Features
-                </a>
-                <a
-                  href="#tools"
-                  className="text-white hover:text-cyan-400 font-medium transition-colors"
-                  aria-label="Tools"
-                  onClick={(e) => handleNavClick(e, '#tools')}
-                >
-                  Tools
-                </a>
-                <a
-                  href="#contributors"
-                  className="text-white hover:text-cyan-400 font-medium transition-colors"
-                  aria-label="Contribute"
-                  onClick={(e) => handleNavClick(e, '#contributors')}
-                >
-                  Contribute
-                </a>
-              </>
-            ) : (
+            {isRoadmapsPage ? (
               <Link
                 to="/"
                 className="text-white hover:text-cyan-400 font-medium transition-colors"
@@ -100,6 +67,52 @@ const Header = () => {
               >
                 Home
               </Link>
+            ) : (
+              <>
+                <Link
+                  to="/roadmaps"
+                  className="text-white hover:text-cyan-400 font-medium transition-colors"
+                  aria-label="Roadmaps"
+                >
+                  Roadmaps
+                </Link>
+                {isHomePage ? (
+                  <>
+                    <a
+                      href="#features"
+                      className="text-white hover:text-cyan-400 font-medium transition-colors"
+                      aria-label="Features"
+                      onClick={(e) => handleNavClick(e, '#features')}
+                    >
+                      Features
+                    </a>
+                    <a
+                      href="#tools"
+                      className="text-white hover:text-cyan-400 font-medium transition-colors"
+                      aria-label="Tools"
+                      onClick={(e) => handleNavClick(e, '#tools')}
+                    >
+                      Tools
+                    </a>
+                    <a
+                      href="#contributors"
+                      className="text-white hover:text-cyan-400 font-medium transition-colors"
+                      aria-label="Contribute"
+                      onClick={(e) => handleNavClick(e, '#contributors')}
+                    >
+                      Contribute
+                    </a>
+                  </>
+                ) : (
+                  <Link
+                    to="/"
+                    className="text-white hover:text-cyan-400 font-medium transition-colors"
+                    aria-label="Home"
+                  >
+                    Home
+                  </Link>
+                )}
+              </>
             )}
           </nav>
 
