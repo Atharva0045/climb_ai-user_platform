@@ -33,11 +33,11 @@ const Hero = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 font-bold bg-clip-text text-transparent py-2.5">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-cyan-500 to-blue-500 font-bold bg-clip-text text-transparent py-2.5">
         Transform Your Career with AI-Optimized Roadmaps
       </h2>
-      <p className="text-lg text-gray-50 leading-relaxed mb-10 max-w-2xl mx-auto">
+      <p className="text-base sm:text-lg text-gray-50 leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto">
         Climb.ai Provides AI-powered roadmaps, personalized learning paths,
         and real-time guidance to help you achieve your career goals.
       </p>

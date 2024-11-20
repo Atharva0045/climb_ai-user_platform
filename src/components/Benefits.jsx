@@ -11,15 +11,15 @@ const BenefitCard = ({ icon: Icon, title, description }) => (
 );
 
 const Benefits = () => (
-  <section id="features" className="mt-28">
-    <h2 className="text-4xl font-bold text-white mb-4">
+  <section id="features" className="mt-16 sm:mt-28 px-4 sm:px-6 lg:px-8">
+    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
       Key Features
     </h2>
-    <p className="text-gray-300 mb-12 max-w-2xl mx-auto">
+    <p className="text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
       Experience a new way of learning with AI-powered features designed for your success
     </p>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
       <BenefitCard
         icon={Compass}
         title="Adaptive Learning Paths"
