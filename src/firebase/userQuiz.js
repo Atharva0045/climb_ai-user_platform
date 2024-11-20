@@ -20,8 +20,7 @@ const quizQuestions = [
       "Watching video tutorials",
       "Practicing with hands-on projects (upcoming)",
       "All of the above"
-    ],
-    multiple: true
+    ]
   },
   {
     id: 3,
@@ -59,8 +58,7 @@ const quizQuestions = [
       "System Design",
       "Domain-Specific Knowledge (e.g., Data Science, AI)",
       "Soft Skills and Interview Preparation"
-    ],
-    multiple: true
+    ]
   },
   {
     id: 7,
