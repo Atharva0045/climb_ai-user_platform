@@ -13,6 +13,9 @@ import Profile from "./components/Profile";
 import Roadmaps from "./components/Roadmaps";
 import RoadmapDetail from "./components/RoadmapDetail";
 import PersonalizedRoadmaps from "./components/PersonalizedRoadmaps";
+import PythonRoadmap from './components/static-roadmaps/software-engineering/PythonRoadmap';
+import JavaRoadmap from './components/static-roadmaps/software-engineering/JavaRoadmap';
+import CppRoadmap from './components/static-roadmaps/software-engineering/CppRoadmap';
 import "./index.css";
 
 const HomePage = () => (
@@ -38,6 +41,9 @@ const App = () => {
               <Route path="/roadmaps" element={<Roadmaps />} />
               <Route path="/personalized-roadmaps" element={<PersonalizedRoadmaps />} />
               <Route path="/roadmap/:roleId" element={<RoadmapDetail />} />
+              <Route path="/roadmap/software-engineer/python" element={<PythonRoadmap />} />
+              <Route path="/roadmap/software-engineer/java" element={<JavaRoadmap />} />
+              <Route path="/roadmap/software-engineer/cpp" element={<CppRoadmap />} />
             </Routes>
           </main>
 
