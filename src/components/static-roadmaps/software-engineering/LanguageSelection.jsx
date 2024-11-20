@@ -70,7 +70,8 @@ const LanguageSelection = () => {
 
   const handleStartLearning = () => {
     if (selectedLanguage) {
-      navigate(`/roadmap/software-engineer/${selectedLanguage.toLowerCase()}`);
+      const urlPath = selectedLanguage.toLowerCase() === 'c++' ? 'cpp' : selectedLanguage.toLowerCase();
+      navigate(`/roadmap/software-engineer/${urlPath}`);
     }
   };
 
