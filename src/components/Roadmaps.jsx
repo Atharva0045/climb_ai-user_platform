@@ -77,10 +77,10 @@ const Roadmaps = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">
-            Career Roadmaps
+            Static Career Roadmaps
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Choose your career path and get a personalized learning roadmap powered by AI. 
+            Choose your career path and get a static learning roadmap.
             Each roadmap is tailored to industry standards and current market demands.
           </p>
         </div>

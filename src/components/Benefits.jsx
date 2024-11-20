@@ -1,4 +1,4 @@
-import { Route, Bot, Rocket, Compass, BookOpen } from "lucide-react";
+import { Bot, Compass, BookOpen } from "lucide-react";
 
 const BenefitCard = ({ icon: Icon, title, description }) => (
   <div className="flex flex-col items-center p-6">
@@ -13,7 +13,7 @@ const BenefitCard = ({ icon: Icon, title, description }) => (
 const Benefits = () => (
   <section id="features" className="mt-16 sm:mt-28 px-4 sm:px-6 lg:px-8">
     <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-      Key Features
+      Upcoming Key Features
     </h2>
     <p className="text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
       Experience a new way of learning with AI-powered features designed for your success

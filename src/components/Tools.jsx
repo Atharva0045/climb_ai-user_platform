@@ -20,7 +20,7 @@ const ToolCard = ({ icon: Icon, title, description }) => (
 const Tools = () => (
   <section id="tools" className="mt-16 sm:mt-28 px-4 sm:px-6 lg:px-8">
     <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-      Our Tools Suite
+      Upcoming Tools Suite
     </h2>
     <p className="text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
       Comprehensive set of tools designed to accelerate your learning journey and skill development
