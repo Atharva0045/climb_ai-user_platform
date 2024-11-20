@@ -72,9 +72,9 @@ const Header = () => {
                 <Link
                   to="/roadmaps"
                   className="text-white hover:text-cyan-400 font-medium transition-colors"
-                  aria-label="Roadmaps"
+                  aria-label="Static Roadmaps"
                 >
-                  Roadmaps
+                  Static Roadmaps
                 </Link>
                 {isHomePage ? (
                   <>
