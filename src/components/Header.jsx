@@ -25,7 +25,7 @@ const Header = () => {
           <div className="flex-shrink-0 w-[120px] sm:w-[160px]">
             <Link to="/" className="flex items-center space-x-2">
               <img
-                src="/platform-icon.svg"
+                src="./platform-icon.svg"
                 alt="Climb AI Logo"
                 className="h-6 w-6 sm:h-8 sm:w-8"
               />
