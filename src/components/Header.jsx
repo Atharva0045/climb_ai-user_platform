@@ -25,7 +25,7 @@ const Header = () => {
           <div className="flex-shrink-0 w-[120px] sm:w-[160px]">
             <Link to="/" className="flex items-center space-x-2">
               <img
-                src="./platform-icon.svg"
+                src="/platform-icon.svg"
                 alt="Climb AI Logo"
                 className="h-6 w-6 sm:h-8 sm:w-8"
               />
@@ -115,13 +115,15 @@ const Header = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700">
             <nav className="flex flex-col py-2">
-              <Link
-                to="/roadmaps"
-                className="text-white hover:text-cyan-400 px-4 py-3 hover:bg-gray-700/50"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Roadmaps
-              </Link>
+              {!isRoadmapsPage && (
+                <Link
+                  to="/roadmaps"
+                  className="text-white hover:text-cyan-400 px-4 py-3 hover:bg-gray-700/50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Static Roadmaps
+                </Link>
+              )}
               {isHomePage ? (
                 <>
                   <a

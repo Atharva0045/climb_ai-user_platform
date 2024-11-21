@@ -158,6 +158,10 @@ const DashboardContent = ({ categories }) => (
 );
 
 const PersonalizedRoadmaps = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const categories = [
     {
       icon: Code2,
@@ -198,8 +202,8 @@ const PersonalizedRoadmaps = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 pt-20 pb-12">
+    <div className="min-h-screen pt-8 pb-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">
             Learning Journey
