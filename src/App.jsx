@@ -14,6 +14,7 @@ import PersonalizedRoadmaps from "./components/PersonalizedRoadmaps";
 import PythonRoadmap from './components/static-roadmaps/software-engineering/PythonRoadmap';
 import JavaRoadmap from './components/static-roadmaps/software-engineering/JavaRoadmap';
 import CppRoadmap from './components/static-roadmaps/software-engineering/CppRoadmap';
+import CppTopicPage from './components/static-roadmaps/software-engineering/topic-pages/CppTopicPage';
 import "./index.css";
 
 const HomePage = () => (
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/roadmap/software-engineer/python" element={<PythonRoadmap />} />
             <Route path="/roadmap/software-engineer/java" element={<JavaRoadmap />} />
             <Route path="/roadmap/software-engineer/cpp" element={<CppRoadmap />} />
+            <Route path="/roadmap/software-engineer/cpp/:topicSlug" element={<CppTopicPage />} />
           </Routes>
         </main>
 
