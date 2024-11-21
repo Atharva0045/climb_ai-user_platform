@@ -11,7 +11,16 @@ const CppFlowchart = () => {
   // Add this function to handle node clicks
   const handleNodeClick = (node) => {
     // Convert node label to URL-friendly format
-    const topicSlug = node.label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const topicSlug = node.label
+      .toLowerCase()
+      .replace(/\+\+/g, 'pp')  // Handle C++ -> cpp
+      .replace(/[^a-z0-9]+/g, '-')  // Replace spaces and special chars with hyphens
+      .replace(/^-+|-+$/g, '');  // Remove leading/trailing hyphens
+    
+    // For debugging
+    console.log('Node Label:', node.label);
+    console.log('Topic Slug:', topicSlug);
+    
     navigate(`/roadmap/software-engineer/cpp/${topicSlug}`);
   };
 
