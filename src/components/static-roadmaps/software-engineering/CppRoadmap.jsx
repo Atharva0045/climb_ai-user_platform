@@ -10,7 +10,7 @@ const CppRoadmap = () => {
 
   return (
     <div className="min-h-screen pt-8 pb-8">
-      <div className="max-w-5xl mx-auto px-2 sm:px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link
           to="/roadmap/software-engineer"
           className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors mb-2"

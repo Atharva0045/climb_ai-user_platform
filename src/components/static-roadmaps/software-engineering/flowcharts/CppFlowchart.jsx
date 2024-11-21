@@ -4,22 +4,7 @@ import * as d3 from 'd3';
 const CppFlowchart = () => {
   const svgRef = useRef();
   const [activeNode, setActiveNode] = useState(null);
-  const [dimensions, setDimensions] = useState({ width: 900, height: 1500 });
-
-  // Add resize handler
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 768;
-      setDimensions({
-        width: 900,
-        height: 1500
-      });
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [dimensions] = useState({ width: 1200, height: 1500 });
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -27,34 +12,32 @@ const CppFlowchart = () => {
     // Clear any existing SVG content
     d3.select(svgRef.current).selectAll("*").remove();
 
-    // Data structure for the roadmap
+    // Data structure for the roadmap with removed nodes and reordered connection
     const nodes = [
       { id: 0, label: "C++ Basics", level: "Beginner" },
       { id: 1, label: "Pattern Questions", level: "Beginner" },
-      { id: 2, label: "Sum of N Natural Numbers", level: "Beginner" },
-      { id: 3, label: "Factorial/Fibonacci", level: "Beginner" },
-      { id: 4, label: "Basic Maths", level: "Beginner" },
-      { id: 5, label: "Functions", level: "Beginner" },
-      { id: 6, label: "STL", level: "Intermediate" },
-      { id: 7, label: "Basic Recursion", level: "Intermediate" },
-      { id: 8, label: "Basic Arrays", level: "Intermediate" },
-      { id: 9, label: "Basic Hashing", level: "Intermediate" },
-      { id: 10, label: "Basic Strings", level: "Intermediate" },
-      { id: 11, label: "Sorting", level: "Intermediate" },
-      { id: 12, label: "Binary Search", level: "Intermediate" },
-      { id: 13, label: "Linked List", level: "Advanced" },
-      { id: 14, label: "Bit Manipulation", level: "Advanced" },
-      { id: 15, label: "Greedy Algorithms", level: "Advanced" },
-      { id: 16, label: "Sliding Window/2 Pointer", level: "Advanced" },
-      { id: 17, label: "Stack/Queues", level: "Advanced" },
-      { id: 18, label: "Heaps", level: "Advanced" },
-      { id: 19, label: "Binary Trees", level: "Expert" },
-      { id: 20, label: "Binary Search Trees", level: "Expert" },
-      { id: 21, label: "Graphs", level: "Expert" },
-      { id: 22, label: "Dynamic Programming", level: "Expert" },
-      { id: 23, label: "Tries", level: "Expert" },
-      { id: 24, label: "Advance Strings", level: "Expert" },
-      { id: 25, label: "Maths for CP", level: "Expert" }
+      { id: 2, label: "Basic Maths", level: "Beginner" },
+      { id: 3, label: "Functions", level: "Beginner" },
+      { id: 4, label: "Basic Recursion", level: "Intermediate" },
+      { id: 5, label: "STL", level: "Intermediate" },
+      { id: 6, label: "Basic Arrays", level: "Intermediate" },
+      { id: 7, label: "Basic Hashing", level: "Intermediate" },
+      { id: 8, label: "Basic Strings", level: "Intermediate" },
+      { id: 9, label: "Sorting", level: "Intermediate" },
+      { id: 10, label: "Binary Search", level: "Intermediate" },
+      { id: 11, label: "Linked List", level: "Advanced" },
+      { id: 12, label: "Bit Manipulation", level: "Advanced" },
+      { id: 13, label: "Greedy Algorithms", level: "Advanced" },
+      { id: 14, label: "Sliding Window/2 Pointer", level: "Advanced" },
+      { id: 15, label: "Stack/Queues", level: "Advanced" },
+      { id: 16, label: "Heaps", level: "Advanced" },
+      { id: 17, label: "Binary Trees", level: "Expert" },
+      { id: 18, label: "Binary Search Trees", level: "Expert" },
+      { id: 19, label: "Graphs", level: "Expert" },
+      { id: 20, label: "Dynamic Programming", level: "Expert" },
+      { id: 21, label: "Tries", level: "Expert" },
+      { id: 22, label: "Advance Strings", level: "Expert" },
+      { id: 23, label: "Maths for CP", level: "Expert" }
     ];
 
     const links = nodes.slice(0, -1).map((node, index) => ({
@@ -67,20 +50,19 @@ const CppFlowchart = () => {
     const width = dimensions.width - margin.left - margin.right;
     const height = dimensions.height - margin.top - margin.bottom;
 
-    // Create SVG container
+    // Create SVG container with fixed width
     const svg = d3.select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Adjust node dimensions for mobile
-    const isMobile = window.innerWidth < 768;
-    const nodeWidth = isMobile ? 160 : 200;
+    // Node dimensions (now fixed regardless of screen size)
+    const nodeWidth = 200;
     const nodeHeight = 40;
-    const horizontalSpacing = isMobile ? nodeWidth * 1.3 : nodeWidth * 1.7;
-    const verticalSpacing = nodeHeight * (isMobile ? 2 : 2.5);
-    const nodesPerRow = isMobile ? 2 : 3;
+    const horizontalSpacing = nodeWidth * 1.7;
+    const verticalSpacing = nodeHeight * 2.5;
+    const nodesPerRow = 3;
 
     nodes.forEach((node, i) => {
       const row = Math.floor(i / nodesPerRow);
@@ -237,7 +219,7 @@ const CppFlowchart = () => {
       .attr("dy", ".35em")
       .attr("text-anchor", "middle")
       .style("fill", "white")
-      .style("font-size", isMobile ? "12px" : "14px")
+      .style("font-size", "14px")
       .style("font-weight", "500")
       .text(d => d.label);
 
@@ -255,16 +237,18 @@ const CppFlowchart = () => {
         };
         return colors[d.level];
       })
-      .style("font-size", isMobile ? "10px" : "12px")
+      .style("font-size", "12px")
       .style("font-weight", "500")
       .text(d => d.level);
 
-  }, [dimensions]);
+  }, []);
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 overflow-auto shadow-xl border border-gray-700 min-w-[900px]">
-      <div className="mx-auto" style={{ width: dimensions.width }}>
-        <svg ref={svgRef} className="mx-auto"></svg>
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 shadow-xl border border-gray-700">
+      <div className="overflow-x-auto">
+        <div className="min-w-[1200px]">
+          <svg ref={svgRef} className="mx-auto"></svg>
+        </div>
       </div>
     </div>
   );

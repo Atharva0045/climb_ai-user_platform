@@ -6,7 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const isRoadmapsPage = location.pathname === "/roadmaps";
+  const isRoadmapsPage = location.pathname.includes("/roadmap");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (e, sectionId) => {
