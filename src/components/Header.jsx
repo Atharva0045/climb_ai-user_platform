@@ -1,20 +1,20 @@
 import { Menu, X, Github } from "lucide-react";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
-  const isRoadmapsPage = location.pathname === '/roadmaps';
+  const isHomePage = location.pathname === "/";
+  const isRoadmapsPage = location.pathname === "/roadmaps";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
     if (isHomePage) {
-      document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector(sectionId)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      navigate(`/${sectionId === '#features' ? '' : ''}`);
+      navigate(`/${sectionId === "#features" ? "" : ""}`);
     }
   };
 
@@ -24,17 +24,19 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 w-[120px] sm:w-[160px]">
             <Link to="/" className="flex items-center space-x-2">
-              <img 
-                src="/src/assets/platform-icon.svg" 
-                alt="Climb AI Logo" 
+              <img
+                src="/platform-icon.svg"
+                alt="Climb AI Logo"
                 className="h-6 w-6 sm:h-8 sm:w-8"
               />
-              <h1 className="text-white text-lg sm:text-2xl font-bold">Climb AI</h1>
+              <h1 className="text-white text-lg sm:text-2xl font-bold">
+                Climb AI
+              </h1>
             </Link>
           </div>
 
-          <nav 
-            className="hidden md:flex flex-1 justify-center max-w-2xl mx-auto px-4" 
+          <nav
+            className="hidden md:flex flex-1 justify-center max-w-2xl mx-auto px-4"
             aria-label="Main navigation"
           >
             <div className="flex space-x-6 lg:space-x-8">
@@ -60,21 +62,21 @@ const Header = () => {
                       <a
                         href="#features"
                         className="text-white hover:text-cyan-400 font-medium transition-colors whitespace-nowrap"
-                        onClick={(e) => handleNavClick(e, '#features')}
+                        onClick={(e) => handleNavClick(e, "#features")}
                       >
                         Features
                       </a>
                       <a
                         href="#tools"
                         className="text-white hover:text-cyan-400 font-medium transition-colors whitespace-nowrap"
-                        onClick={(e) => handleNavClick(e, '#tools')}
+                        onClick={(e) => handleNavClick(e, "#tools")}
                       >
                         Tools
                       </a>
                       <a
                         href="#contributors"
                         className="text-white hover:text-cyan-400 font-medium transition-colors whitespace-nowrap"
-                        onClick={(e) => handleNavClick(e, '#contributors')}
+                        onClick={(e) => handleNavClick(e, "#contributors")}
                       >
                         Contribute
                       </a>
@@ -91,7 +93,11 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle mobile menu"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
 
             <a
@@ -122,7 +128,7 @@ const Header = () => {
                     href="#features"
                     className="text-white hover:text-cyan-400 px-4 py-3 hover:bg-gray-700/50"
                     onClick={(e) => {
-                      handleNavClick(e, '#features');
+                      handleNavClick(e, "#features");
                       setMobileMenuOpen(false);
                     }}
                   >
@@ -132,7 +138,7 @@ const Header = () => {
                     href="#tools"
                     className="text-white hover:text-cyan-400 px-4 py-3 hover:bg-gray-700/50"
                     onClick={(e) => {
-                      handleNavClick(e, '#tools');
+                      handleNavClick(e, "#tools");
                       setMobileMenuOpen(false);
                     }}
                   >
@@ -142,7 +148,7 @@ const Header = () => {
                     href="#contributors"
                     className="text-white hover:text-cyan-400 px-4 py-3 hover:bg-gray-700/50"
                     onClick={(e) => {
-                      handleNavClick(e, '#contributors');
+                      handleNavClick(e, "#contributors");
                       setMobileMenuOpen(false);
                     }}
                   >
@@ -176,4 +182,4 @@ const Header = () => {
   );
 };
 
-export default Header; 
+export default Header;
