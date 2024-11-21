@@ -4,6 +4,22 @@ import * as d3 from 'd3';
 const CppFlowchart = () => {
   const svgRef = useRef();
   const [activeNode, setActiveNode] = useState(null);
+  const [dimensions, setDimensions] = useState({ width: 900, height: 1500 });
+
+  // Add resize handler
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      setDimensions({
+        width: 900,
+        height: 1500
+      });
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -47,9 +63,9 @@ const CppFlowchart = () => {
     }));
 
     // SVG dimensions and margins
-    const margin = { top: 30, right: 50, bottom: 30, left: 30 };
-    const width = 900 - margin.left - margin.right;
-    const height = 1500 - margin.top - margin.bottom;
+    const margin = { top: 30, right: 30, bottom: 30, left: 30 };
+    const width = dimensions.width - margin.left - margin.right;
+    const height = dimensions.height - margin.top - margin.bottom;
 
     // Create SVG container
     const svg = d3.select(svgRef.current)
@@ -58,12 +74,13 @@ const CppFlowchart = () => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Position nodes in an organic snake-like pattern
-    const nodeWidth = 200;
+    // Adjust node dimensions for mobile
+    const isMobile = window.innerWidth < 768;
+    const nodeWidth = isMobile ? 160 : 200;
     const nodeHeight = 40;
-    const horizontalSpacing = nodeWidth * 1.7;
-    const verticalSpacing = nodeHeight * 3;
-    const nodesPerRow = 3;
+    const horizontalSpacing = isMobile ? nodeWidth * 1.3 : nodeWidth * 1.7;
+    const verticalSpacing = nodeHeight * (isMobile ? 2 : 2.5);
+    const nodesPerRow = isMobile ? 2 : 3;
 
     nodes.forEach((node, i) => {
       const row = Math.floor(i / nodesPerRow);
@@ -213,18 +230,18 @@ const CppFlowchart = () => {
       .style("stroke-width", 2)
       .style("filter", "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))");
 
-    // Node label
+    // Adjust text size for mobile
     nodeGroups.append("text")
       .attr("x", nodeWidth / 2)
       .attr("y", nodeHeight / 2)
       .attr("dy", ".35em")
       .attr("text-anchor", "middle")
       .style("fill", "white")
-      .style("font-size", "14px")
+      .style("font-size", isMobile ? "12px" : "14px")
       .style("font-weight", "500")
       .text(d => d.label);
 
-    // Level indicator
+    // Adjust level indicator text size
     nodeGroups.append("text")
       .attr("x", nodeWidth / 2)
       .attr("y", -8)
@@ -238,15 +255,15 @@ const CppFlowchart = () => {
         };
         return colors[d.level];
       })
-      .style("font-size", "12px")
+      .style("font-size", isMobile ? "10px" : "12px")
       .style("font-weight", "500")
       .text(d => d.level);
 
-  }, []);
+  }, [dimensions]);
 
   return (
-    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 overflow-auto shadow-xl border border-gray-700">
-      <div className="mx-auto" style={{ maxWidth: '900px' }}>
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 overflow-auto shadow-xl border border-gray-700 min-w-[900px]">
+      <div className="mx-auto" style={{ width: dimensions.width }}>
         <svg ref={svgRef} className="mx-auto"></svg>
       </div>
     </div>

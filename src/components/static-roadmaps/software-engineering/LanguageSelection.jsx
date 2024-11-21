@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Code, Cpu, Coffee, Award } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const LanguageOption = ({ icon: Icon, language, description, careerPaths, selected, onSelect }) => (
   <div
@@ -30,6 +30,10 @@ const LanguageOption = ({ icon: Icon, language, description, careerPaths, select
 const LanguageSelection = () => {
   const navigate = useNavigate();
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const languageOptions = [
     {
@@ -76,7 +80,7 @@ const LanguageSelection = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-12">
+    <div className="min-h-screen pt-8 pb-8">
       <div className="max-w-7xl mx-auto px-4">
         <Link
           to="/roadmaps"
