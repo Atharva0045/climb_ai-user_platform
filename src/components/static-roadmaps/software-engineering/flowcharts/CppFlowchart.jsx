@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { useNavigate } from 'react-router-dom';
 
 const CppFlowchart = () => {
+  const navigate = useNavigate();
   const svgRef = useRef();
   const [activeNode, setActiveNode] = useState(null);
   const [dimensions] = useState({ width: 1200, height: 1500 });
+
+  // Add this function to handle node clicks
+  const handleNodeClick = (node) => {
+    // Convert node label to URL-friendly format
+    const topicSlug = node.label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    navigate(`/roadmap/software-engineer/cpp/${topicSlug}`);
+  };
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -170,6 +179,7 @@ const CppFlowchart = () => {
       .append("g")
       .attr("class", "node")
       .attr("transform", d => `translate(${d.x},${d.y})`)
+      .style("cursor", "pointer") // Add pointer cursor
       .on("mouseover", (event, d) => {
         setActiveNode(d.id);
         d3.select(event.currentTarget)
@@ -183,7 +193,8 @@ const CppFlowchart = () => {
           .transition()
           .duration(200)
           .attr("transform", d => `translate(${d.x},${d.y}) scale(1)`);
-      });
+      })
+      .on("click", (event, d) => handleNodeClick(d)); // Add click handler
 
     // Node background with glass effect
     nodeGroups.append("rect")
@@ -241,7 +252,7 @@ const CppFlowchart = () => {
       .style("font-weight", "500")
       .text(d => d.level);
 
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 shadow-xl border border-gray-700">
