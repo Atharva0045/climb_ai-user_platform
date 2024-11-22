@@ -185,10 +185,24 @@ int* createArray(int size) {
     },
     {
       type: 'practice',
-      title: 'Array Interview Problems',
-      url: 'https://takeuforward.org/array/top-array-interview-questions-structured-path-with-video-solutions',
+      title: 'Find Largest Element in an Array',
+      url: 'https://www.geeksforgeeks.org/problems/largest-element-in-array4009/0',
       icon: Code2,
-      note: '* Focus on Basic level questions for now'
+      note: '* Classic beginner question'
+    },
+    {
+      type: 'practice',
+      title: 'Find Second Largest Element',
+      url: 'https://www.geeksforgeeks.org/problems/second-largest3735/1',
+      icon: Code2,
+      note: '* Twisted logic'
+    },
+    {
+      type: 'practice',
+      title: 'Linear Search',
+      url: 'https://www.geeksforgeeks.org/problems/who-will-win-1587115621/1',
+      icon: Code2,
+      note: '* Classic Linear Search'
     },
     {
       type: 'tutorial',
