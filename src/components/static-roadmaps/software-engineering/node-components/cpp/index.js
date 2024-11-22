@@ -38,7 +38,7 @@ const nodeComponents = {
   'linked-list': LinkedList,
   'bit-manipulation': BitManipulation,
   'greedy-algorithms': GreedyAlgorithms,
-  'sliding-window': SlidingWindow,
+  'sliding-window-2-pointer': SlidingWindow,
   'stack-queues': StackQueues,
   'heaps': Heaps,
   'binary-trees': BinaryTrees,
