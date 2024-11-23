@@ -1,6 +1,5 @@
 import { Code2, Database, Brain, Cloud, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 const RoadmapCategory = ({ icon: Icon, title, roles }) => (
   <div className="bg-gray-800 rounded-lg p-6 hover:border-cyan-500 border-2 border-transparent transition-all duration-300">
@@ -23,10 +22,6 @@ const RoadmapCategory = ({ icon: Icon, title, roles }) => (
 );
 
 const Roadmaps = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const categories = [
     {
       icon: Code2,
@@ -78,7 +73,7 @@ const Roadmaps = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-8 pb-8">
+    <div className="min-h-screen pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">
