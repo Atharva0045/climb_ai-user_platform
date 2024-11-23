@@ -1,6 +1,8 @@
 import { Code2, Database, Brain, Cloud, Lock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
+import { quizQuestions, saveQuizResults, checkQuizCompletion } from '../firebase/userQuiz';
 import { Loader2 } from "lucide-react";
 
 const RoadmapCategory = ({ icon: Icon, title, roles, locked }) => (
@@ -55,6 +57,7 @@ const QuizComponent = ({ onComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
 
   const handleAnswer = (questionId, answer) => {
     setUserAnswers(prev => ({
@@ -158,28 +161,48 @@ const DashboardContent = ({ categories }) => (
 );
 
 const PersonalizedRoadmaps = () => {
+  const { user } = useAuth();
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    const checkUserQuizStatus = async () => {
+      if (user) {
+        const hasCompletedQuiz = await checkQuizCompletion(user.uid);
+        setQuizCompleted(hasCompletedQuiz);
+        setLoading(false);
+      }
+    };
+
+    checkUserQuizStatus();
+  }, [user]);
+
+  const handleQuizComplete = async (results) => {
+    setQuizCompleted(true);
+    // Here you would typically process the results and update the roadmap recommendations
+    console.log('Quiz results:', results);
+  };
 
   const categories = [
     {
       icon: Code2,
-      title: "Learning Paths",
+      title: "AI-Recommended Paths",
       roles: [
-        "Path 1",
-        "Path 2",
+        "Recommended Path 1",
+        "Recommended Path 2",
         "Custom Learning Track",
       ],
+      locked: !user,
     },
     {
       icon: Database,
-      title: "Progress Tracking",
+      title: "Your Progress",
       roles: [
         "Current Learning Path",
         "Completed Modules",
         "Skill Assessment",
       ],
+      locked: !user,
     },
     {
       icon: Brain,
@@ -189,6 +212,7 @@ const PersonalizedRoadmaps = () => {
         "Practice Projects",
         "Mentor Matching",
       ],
+      locked: !user,
     },
     {
       icon: Cloud,
@@ -198,18 +222,39 @@ const PersonalizedRoadmaps = () => {
         "Skill Gap Analysis",
         "Performance Metrics",
       ],
+      locked: !user,
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-cyan-500" />
+      </div>
+    );
+  }
+
+  if (!quizCompleted && user) {
+    return (
+      <div className="min-h-screen bg-gray-900">
+        <div className="max-w-2xl mx-auto px-4 pt-20 pb-12">
+          <QuizComponent onComplete={handleQuizComplete} />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen pt-8 pb-8">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 pt-20 pb-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">
-            Learning Journey
+            Personalized Learning Journey
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Explore our learning paths and resources.
+            {user 
+              ? "Welcome to your personalized learning dashboard."
+              : "Sign in to unlock your personalized learning journey with AI-powered recommendations and progress tracking."}
           </p>
         </div>
 
