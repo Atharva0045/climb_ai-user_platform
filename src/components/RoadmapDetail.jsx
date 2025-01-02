@@ -1,18 +1,23 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import LanguageSelection from './static-roadmaps/software-engineering/LanguageSelection';
 
 const RoadmapDetail = () => {
   const { roleId } = useParams();
   const isSoftwareEngineer = roleId === 'software-engineer';
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (isSoftwareEngineer) {
     return <LanguageSelection />;
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-12">
+    <div className="min-h-screen pt-8 pb-8">
       <div className="max-w-7xl mx-auto px-4">
         <Link
           to="/roadmaps"
